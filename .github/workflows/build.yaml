@@ -5,9 +5,8 @@ name: Build the project
     push:
       branches:
         - main  # Triggers the workflow on push to main branch
-    
-
-   jobs:
+  
+  jobs:
     build: 
       runs-on: ubuntu-latest # Körs på en linux-virtuell maskin
 
