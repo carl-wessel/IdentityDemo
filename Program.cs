@@ -12,6 +12,10 @@ var connectionStr = builder.Configuration.GetConnectionString("AuthConnection");
 builder.Services.AddDbContext<AuthDbContext>(options => options.UseSqlServer(connectionStr));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthDbContext>();
+builder.Services.AddApplicationInsightsTelemetry(new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions
+{
+    ConnectionString = builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]
+});
 
 var app = builder.Build();
 

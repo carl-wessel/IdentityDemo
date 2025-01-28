@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:AuthConnection"
+    },
+    "appInsights1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/microsoft.insights/components/app-insights-demo",
+      "type": "appInsights.azure",
+      "connectionId": "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    }
+  }
+}

@@ -4,42 +4,42 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IdentityDemo.Pages.Account
 {
-	[BindProperties]
-	public class LoginModel : PageModel
-	{
-		private readonly UserManager<IdentityUser> _userManager;
-		private readonly SignInManager<IdentityUser> _signInManager;
+    [BindProperties]
+    public class LoginModel : PageModel
+    {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-		public string? Username { get; set; }
-		public string? Password { get; set; }
+        public string? Username { get; set; }
+        public string? Password { get; set; }
 
-		public LoginModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
-		{
-			_userManager = userManager;
-			_signInManager = signInManager;
-		}
-		public void OnGet()
-		{
+        public LoginModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+        public void OnGet()
+        {
 
-		}
+        }
 
-		public async Task<IActionResult> OnPost()
-		{
+        public async Task<IActionResult> OnPost()
+        {
 
-			IdentityUser userToLogIn = await _userManager.FindByNameAsync(Username);
+            IdentityUser userToLogIn = await _userManager.FindByNameAsync(Username);
 
-			if (userToLogIn != null)
-			{
-				// Första false är remember me checkbox, "Vill du fortfarande vara inloggad?"
-				var signInResult = await _signInManager.PasswordSignInAsync(userToLogIn, Password, false, false);
+            if (userToLogIn != null)
+            {
+                // Första false är remember me checkbox, "Vill du fortfarande vara inloggad?" Andra false är lockout
+                var signInResult = await _signInManager.PasswordSignInAsync(userToLogIn, Password, false, false);
 
-				if (signInResult.Succeeded)
-				{
-					return RedirectToPage("/Member/Index");
-				}
-			}
+                if (signInResult.Succeeded)
+                {
+                    return RedirectToPage("/Member/Index");
+                }
+            }
 
-			return Page();
-		}
-	}
+            return Page();
+        }
+    }
 }
