@@ -1,24 +1,22 @@
 name: Build the project
 
+on:
+  push:
+    branches:
+      - main # Triggers the workflow on push to main branch
 
-  on: 
-    push:
-      branches:
-        - main  # Triggers the workflow on push to main branch
-  
-  jobs:
-    build: 
-      runs-on: ubuntu-latest # Körs på en linux-virtuell maskin
+jobs:
+  build:
+    runs-on: ubuntu-latest # Körs på en linux-virtuell maskin
 
+    steps:
+      - name: Checkout the code # Hämtar koden från repot
+        uses: actions/checkout@v2
 
-      steps:
-        - name: Checkout the code # Hämtar koden från repot
-          uses: actions/checkout@v2
+      - name: Install .NET Core SDK # Installera .NET Core SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
 
-        - name: Install .NET Core SDK # Installera .NET Core SDK
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: '6.0.x'
-
-        - name: Build the project # Bygger projektet
-          run: dotnet build
+      - name: Build the project # Bygger projektet
+        run: dotnet build
